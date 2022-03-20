@@ -21,9 +21,11 @@ public class Main {
         Cupom cupomLoja = new Cupom(empresaXYZ, null, null);
         cupomLoja.addItem(cafe, 1);
 
+        System.out.println("Cupom Loja de Conveniência: ");
         List<ItemDoCupom> itensDoCupom1 = cupomLoja.getItens();
         for(ItemDoCupom i : itensDoCupom1) {
             System.out.println(i.getSequencial());
+            System.out.println(i.getProduto().getCodigoDeBarras());
             System.out.println(i.getProduto().getDescricao());
             System.out.println(i.getQuantidade());
             System.out.println("--------------------------");
@@ -31,9 +33,12 @@ public class Main {
 
         CupomEmAbastecimento cupomPosto = new CupomEmAbastecimento(empresaXYZ, null, null);
         cupomPosto.addItem(01, 02, gasolina, 20);
+
+        System.out.println("Cupom Posto de Gasolina: ");
         List<ItemDoCupomEmAbastecimento> itensDoCupom2 = cupomPosto.getItensAbastecimento();
         for(ItemDoCupom i : itensDoCupom2) {
             System.out.println(i.getSequencial());
+            System.out.println(i.getProduto().getCodigoDeBarras());
             System.out.println(i.getProduto().getDescricao());
             System.out.println(i.getQuantidade());
             System.out.println("--------------------------");
