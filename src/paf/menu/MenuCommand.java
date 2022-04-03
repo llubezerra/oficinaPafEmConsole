@@ -7,13 +7,15 @@ import java.util.Scanner;
 
 public abstract class MenuCommand {
 
+    protected final int LINE_QTY = 2;
+
     protected Scanner keyboardScanner;
     protected MenuHandler menuHandler;
     protected Empresa empresa;
     protected Usuario usuario;
 
     public MenuCommand(MenuHandler menuHandler, Empresa empresa, Usuario usuario) {
-        this.keyboardScanner = keyboardScanner;
+        keyboardScanner = new Scanner(System.in);
         this.menuHandler = menuHandler;
         this.empresa = empresa;
         this.usuario = usuario;
