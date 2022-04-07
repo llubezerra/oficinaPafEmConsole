@@ -2,6 +2,8 @@ package paf.menu;
 
 import paf.*;
 
+import java.util.List;
+
 public class VendeMenuCommand extends MenuCommand {
 
     private ProdutoDAO produtoDAO;
@@ -23,13 +25,14 @@ public class VendeMenuCommand extends MenuCommand {
 
     private void doVendaPasso1(){
         cupom = new Cupom(empresa, null, null);
+        doVendaPasso2();
     }
 
     private void doVendaPasso2(){
         System.out.println("[ PAF em Console > Menu Principal > Menu de Vendas ]");
         System.out.print("Digite o código de barras do produto: ");
         String codigoDeBarras = keyboardScanner.nextLine();
-        System.out.println("Digite a quantidade do produto: ");
+        System.out.print("Digite a quantidade do produto: ");
         double quantidade = keyboardScanner.nextDouble();
 
         Produto produto = produtoDAO.findBy(codigoDeBarras);
@@ -48,8 +51,8 @@ public class VendeMenuCommand extends MenuCommand {
         System.out.println("n - não, fecha o cupom fiscal.");
         System.out.print("= ");
 
-        String opcaoMenu = keyboardScanner.nextLine();
-        keyboardScanner.next();
+        String opcaoMenu = keyboardScanner.next();
+        //keyboardScanner.next();
         if(opcaoMenu.equals("s"))
             doVendaPasso2();
         else if(opcaoMenu.equals("n"))
@@ -61,6 +64,16 @@ public class VendeMenuCommand extends MenuCommand {
     }
 
     private void doVendaPasso4(){
-
+        System.out.println("Paramos aqui");
+        System.out.println("Cupom Fiscal");
+        System.out.println();
+        List<ItemDoCupom> itensDoCupom1 = cupom.getItens();
+        for(ItemDoCupom i : itensDoCupom1) {
+            System.out.println("Sequencial: " + i.getSequencial());
+            System.out.println("Código de barras: " + i.getProduto().getCodigoDeBarras());
+            System.out.println("Descrição: " + i.getProduto().getDescricao());
+            System.out.println("Quantidade: " + i.getQuantidade());
+            System.out.println("--------------------------");
+        }
     }
 }
