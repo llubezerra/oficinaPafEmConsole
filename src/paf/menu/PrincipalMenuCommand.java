@@ -1,5 +1,6 @@
 package paf.menu;
 
+import br.com.ecfsim.EcfSimDriver;
 import paf.Empresa;
 import paf.Usuario;
 
@@ -7,7 +8,7 @@ public class PrincipalMenuCommand extends MenuCommand {
 
 
     public PrincipalMenuCommand(MenuHandler menuHandler, Empresa empresa, Usuario usuario) {
-        super(menuHandler, empresa, usuario);
+        super(menuHandler, null, empresa, usuario);
     }
 
     @Override

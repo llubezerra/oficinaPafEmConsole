@@ -1,5 +1,6 @@
 package paf.menu;
 
+import br.com.ecfsim.EcfSimDriver;
 import paf.Empresa;
 import paf.Usuario;
 
@@ -13,10 +14,12 @@ public abstract class MenuCommand {
     protected MenuHandler menuHandler;
     protected Empresa empresa;
     protected Usuario usuario;
+    protected EcfSimDriver ecf;
 
-    public MenuCommand(MenuHandler menuHandler, Empresa empresa, Usuario usuario) {
+    public MenuCommand(MenuHandler menuHandler, EcfSimDriver ecf, Empresa empresa, Usuario usuario) {
         keyboardScanner = new Scanner(System.in);
         this.menuHandler = menuHandler;
+        this.ecf = ecf;
         this.empresa = empresa;
         this.usuario = usuario;
     }

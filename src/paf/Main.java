@@ -2,6 +2,8 @@ package paf;
 
 import paf.menu.MenuHandler;
 
+import br.com.ecfsim.EcfSimDriver;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -9,12 +11,16 @@ public class Main {
         Empresa epaPadreEustaquio = createEmpresa();
         ProdutoDAO produtoDAO = new ProdutoDAO();
 
-        MenuHandler menuHandler = new MenuHandler(epaPadreEustaquio, null, produtoDAO);
-        menuHandler.select("p");
+        EcfSimDriver driver = new EcfSimDriver();
+        if(driver.conecta()){
+            MenuHandler menuHandler = new MenuHandler(epaPadreEustaquio, null, driver, produtoDAO);
+            menuHandler.select("p");
+        }
+
         System.out.println();
         System.out.println("::: PAF em Console ::::");
         System.out.println("Empresa: " + epaPadreEustaquio.getNome());
-        System.out.println("Encerrado");
+        System.out.println("PAF em Console encerrado");
         System.out.println();
 
         System.out.println("--------------------------");

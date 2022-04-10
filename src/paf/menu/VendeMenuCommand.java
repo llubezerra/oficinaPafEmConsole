@@ -1,5 +1,6 @@
 package paf.menu;
 
+import br.com.ecfsim.EcfSimDriver;
 import paf.*;
 
 import java.util.List;
@@ -9,8 +10,8 @@ public class VendeMenuCommand extends MenuCommand {
     private ProdutoDAO produtoDAO;
     private Cupom cupom;
 
-    public VendeMenuCommand(MenuHandler menuHandler, Empresa empresa, Usuario usuario, ProdutoDAO produtoDAO) {
-        super(menuHandler, empresa, usuario);
+    public VendeMenuCommand(MenuHandler menuHandler, EcfSimDriver ecf, Empresa empresa, Usuario usuario, ProdutoDAO produtoDAO) {
+        super(menuHandler, ecf, empresa, usuario);
         this.produtoDAO = produtoDAO;
     }
 
@@ -20,18 +21,22 @@ public class VendeMenuCommand extends MenuCommand {
     }
 
     private void doMenuVendas(){
-        doVendaPasso1();
+        doIniciaVenda();
     }
 
-    private void doVendaPasso1(){
+    //Passo 1
+    private void doIniciaVenda(){
         cupom = new Cupom(empresa, null, null);
-        doVendaPasso2();
+        ecf.abreCupom(empresa.getCnpj(), empresa.getNome(), empresa.getEndereco(), "");
+
+        doAdicionaItem();
     }
 
-    private void doVendaPasso2(){
+    //Passo 2
+    private void doAdicionaItem(){
         System.out.println("[ PAF em Console > Menu Principal > Menu de Vendas ]");
         System.out.print("Digite o código de barras do produto: ");
-        String codigoDeBarras = keyboardScanner.nextLine();
+        String codigoDeBarras = keyboardScanner.next();
         System.out.print("Digite a quantidade do produto: ");
         double quantidade = keyboardScanner.nextDouble();
 
@@ -41,10 +46,11 @@ public class VendeMenuCommand extends MenuCommand {
         else
             System.out.println("Produto não encontrado.");
 
-        doVendaPasso3();
+        doConsultaSeNovoItem();
     }
 
-    private void doVendaPasso3(){
+    //Passo 3
+    private void doConsultaSeNovoItem(){
         System.out.println("[ PAF em Console > Menu Principal > Menu de Vendas ]");
         System.out.println("Deseja vender outro item? Digite: ");
         System.out.println("s - sim, vende outro item.");
@@ -52,19 +58,37 @@ public class VendeMenuCommand extends MenuCommand {
         System.out.print("= ");
 
         String opcaoMenu = keyboardScanner.next();
-        //keyboardScanner.next();
+        System.out.println(System.lineSeparator().repeat(LINE_QTY));
+
         if(opcaoMenu.equals("s"))
-            doVendaPasso2();
+            doAdicionaItem();
         else if(opcaoMenu.equals("n"))
-            doVendaPasso4();
+            doInformaFormaPgto();
         else {
             System.out.println("Opção incorreta");
-            doVendaPasso3();
+            doConsultaSeNovoItem();
         }
+
+        System.out.println(System.lineSeparator().repeat(LINE_QTY));
     }
 
-    private void doVendaPasso4(){
-        System.out.println("Paramos aqui");
+    //Passo 4
+    private void doInformaFormaPgto(){
+
+        System.out.println("[ PAF em Console > Menu Principal > Menu de Vendas ]");
+        System.out.println("Escolha a forma de pagamento:");
+        System.out.println("0 - Dinheiro");
+        System.out.println("1 - Cartão de débito");
+        System.out.println("2 - Cartão de crédito");
+        System.out.print("= ");
+
+        int formaPgto = keyboardScanner.nextInt();
+
+        System.out.println(System.lineSeparator().repeat(LINE_QTY));
+
+        doFechaVenda();
+
+        /*
         System.out.println("Cupom Fiscal");
         System.out.println();
         List<ItemDoCupom> itensDoCupom1 = cupom.getItens();
@@ -74,6 +98,14 @@ public class VendeMenuCommand extends MenuCommand {
             System.out.println("Descrição: " + i.getProduto().getDescricao());
             System.out.println("Quantidade: " + i.getQuantidade());
             System.out.println("--------------------------");
-        }
+        }*/
+    }
+
+    //Passo 5
+    private void doFechaVenda(){
+        System.out.println("Venda fechada.");
+        System.out.println(System.lineSeparator().repeat(LINE_QTY));
+
+        menuHandler.select("p");
     }
 }

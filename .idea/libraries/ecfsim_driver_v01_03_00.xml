@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="ecfsim-driver-v01.03.00">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/ecfsim-driver-v01.03.00.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/ecfsim-driver-v01.03.00.jar!/" />
+    </SOURCES>
+  </library>
+</component>

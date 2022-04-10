@@ -7,7 +7,7 @@ public class SaiMenuCommand extends MenuCommand {
 
 
     public SaiMenuCommand(MenuHandler menuHandler, Empresa empresa, Usuario usuario) {
-        super(menuHandler, empresa, usuario);
+        super(menuHandler, null, empresa, usuario);
     }
 
     @Override
