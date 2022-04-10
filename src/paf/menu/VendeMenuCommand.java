@@ -40,10 +40,17 @@ public class VendeMenuCommand extends MenuCommand {
         System.out.print("Digite a quantidade do produto: ");
         double quantidade = keyboardScanner.nextDouble();
 
+        System.out.println(System.lineSeparator().repeat(LINE_QTY));
+
         Produto produto = produtoDAO.findBy(codigoDeBarras);
-        if(produto != null)
+        if(produto != null){
             cupom.addItem(produto, quantidade);
-        else
+            List<ItemDoCupom> itensDoCupom1 = cupom.getItens();
+            for(ItemDoCupom i : itensDoCupom1) {
+                //String unid = toString(i.getProduto().getUnidade());
+                ecf.vendeItem(i.getProduto().getCodigoDeBarras(), i.getProduto().getDescricao(), i.getQuantidade(), "", i.getValor());
+            }
+        }else
             System.out.println("Produto não encontrado.");
 
         doConsultaSeNovoItem();
@@ -58,6 +65,7 @@ public class VendeMenuCommand extends MenuCommand {
         System.out.print("= ");
 
         String opcaoMenu = keyboardScanner.next();
+
         System.out.println(System.lineSeparator().repeat(LINE_QTY));
 
         if(opcaoMenu.equals("s"))
@@ -68,8 +76,6 @@ public class VendeMenuCommand extends MenuCommand {
             System.out.println("Opção incorreta");
             doConsultaSeNovoItem();
         }
-
-        System.out.println(System.lineSeparator().repeat(LINE_QTY));
     }
 
     //Passo 4
@@ -87,23 +93,12 @@ public class VendeMenuCommand extends MenuCommand {
         System.out.println(System.lineSeparator().repeat(LINE_QTY));
 
         doFechaVenda();
-
-        /*
-        System.out.println("Cupom Fiscal");
-        System.out.println();
-        List<ItemDoCupom> itensDoCupom1 = cupom.getItens();
-        for(ItemDoCupom i : itensDoCupom1) {
-            System.out.println("Sequencial: " + i.getSequencial());
-            System.out.println("Código de barras: " + i.getProduto().getCodigoDeBarras());
-            System.out.println("Descrição: " + i.getProduto().getDescricao());
-            System.out.println("Quantidade: " + i.getQuantidade());
-            System.out.println("--------------------------");
-        }*/
     }
 
     //Passo 5
     private void doFechaVenda(){
         System.out.println("Venda fechada.");
+
         System.out.println(System.lineSeparator().repeat(LINE_QTY));
 
         menuHandler.select("p");
