@@ -20,7 +20,7 @@ public class VendeMenuCommand extends MenuCommand {
 
     //Passo 1
     private void doIniciaVenda(){
-        cupom = new Cupom(empresa, null, null);
+        cupom = new Cupom(empresa, Main.cliente, null);
         ecf.printAbreCupom(cupom);
 
         doAdicionaItem();
