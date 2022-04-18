@@ -1,7 +1,6 @@
 package paf.menu;
 
 import paf.Empresa;
-import paf.IFEcfSim;
 import paf.ImpressoraFiscal;
 import paf.Usuario;
 

@@ -1,6 +1,5 @@
 package paf.menu;
 
-import br.com.ecfsim.EcfSimDriver;
 import paf.Empresa;
 import paf.Usuario;
 

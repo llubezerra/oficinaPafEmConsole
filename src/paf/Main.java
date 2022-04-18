@@ -2,8 +2,6 @@ package paf;
 
 import paf.menu.MenuHandler;
 
-import br.com.ecfsim.EcfSimDriver;
-
 public class Main {
 
     public static void main(String[] args) {
