@@ -1,33 +1,27 @@
 package paf.menu;
 
-import br.com.ecfsim.EcfSimDriver;
 import paf.*;
-
-import java.util.List;
+import br.com.ecfsim.FormaPagamento;
 
 public class VendeMenuCommand extends MenuCommand {
 
     private ProdutoDAO produtoDAO;
     private Cupom cupom;
 
-    public VendeMenuCommand(MenuHandler menuHandler, EcfSimDriver ecf, Empresa empresa, Usuario usuario, ProdutoDAO produtoDAO) {
+    public VendeMenuCommand(MenuHandler menuHandler, ImpressoraFiscal ecf, Empresa empresa, Usuario usuario, ProdutoDAO produtoDAO) {
         super(menuHandler, ecf, empresa, usuario);
         this.produtoDAO = produtoDAO;
     }
 
     @Override
     public void execute() {
-        doMenuVendas();
-    }
-
-    private void doMenuVendas(){
         doIniciaVenda();
     }
 
     //Passo 1
     private void doIniciaVenda(){
         cupom = new Cupom(empresa, null, null);
-        ecf.abreCupom(empresa.getCnpj(), empresa.getNome(), empresa.getEndereco(), "");
+        ecf.printAbreCupom(cupom);
 
         doAdicionaItem();
     }
@@ -45,11 +39,7 @@ public class VendeMenuCommand extends MenuCommand {
         Produto produto = produtoDAO.findBy(codigoDeBarras);
         if(produto != null){
             cupom.addItem(produto, quantidade);
-            List<ItemDoCupom> itensDoCupom1 = cupom.getItens();
-            for(ItemDoCupom i : itensDoCupom1) {
-                //String unid = toString(i.getProduto().getUnidade());
-                ecf.vendeItem(i.getProduto().getCodigoDeBarras(), i.getProduto().getDescricao(), i.getQuantidade(), "", i.getValor());
-            }
+            ecf.printVendeItem(cupom);
         }else
             System.out.println("Produto não encontrado.");
 
@@ -83,12 +73,13 @@ public class VendeMenuCommand extends MenuCommand {
 
         System.out.println("[ PAF em Console > Menu Principal > Menu de Vendas ]");
         System.out.println("Escolha a forma de pagamento:");
-        System.out.println("0 - Dinheiro");
-        System.out.println("1 - Cartão de débito");
-        System.out.println("2 - Cartão de crédito");
+        System.out.println(FormaPagamento.DINHEIRO.ordinal() + " - Dinheiro");
+        System.out.println(FormaPagamento.CARTAO_DEBITO.ordinal() + " - Cartão de débito");
+        System.out.println(FormaPagamento.CARTAO_CREDITO.ordinal() + " - Cartão de crédito");
         System.out.print("= ");
 
         int formaPgto = keyboardScanner.nextInt();
+        ecf.printEfetuaFormaPagamento(FormaPagamento.values()[formaPgto]);
 
         System.out.println(System.lineSeparator().repeat(LINE_QTY));
 
@@ -97,6 +88,7 @@ public class VendeMenuCommand extends MenuCommand {
 
     //Passo 5
     private void doFechaVenda(){
+        ecf.printTerminaFechamentoCupom();
         System.out.println("Venda fechada.");
 
         System.out.println(System.lineSeparator().repeat(LINE_QTY));

@@ -1,7 +1,8 @@
 package paf.menu;
 
-import br.com.ecfsim.EcfSimDriver;
 import paf.Empresa;
+import paf.IFEcfSim;
+import paf.ImpressoraFiscal;
 import paf.Usuario;
 
 import java.util.Scanner;
@@ -14,9 +15,9 @@ public abstract class MenuCommand {
     protected MenuHandler menuHandler;
     protected Empresa empresa;
     protected Usuario usuario;
-    protected EcfSimDriver ecf;
+    protected ImpressoraFiscal ecf;
 
-    public MenuCommand(MenuHandler menuHandler, EcfSimDriver ecf, Empresa empresa, Usuario usuario) {
+    public MenuCommand(MenuHandler menuHandler, ImpressoraFiscal ecf, Empresa empresa, Usuario usuario) {
         keyboardScanner = new Scanner(System.in);
         this.menuHandler = menuHandler;
         this.ecf = ecf;

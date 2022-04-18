@@ -11,9 +11,9 @@ public class Main {
         Empresa epaPadreEustaquio = createEmpresa();
         ProdutoDAO produtoDAO = new ProdutoDAO();
 
-        EcfSimDriver driver = new EcfSimDriver();
-        if(driver.conecta()){
-            MenuHandler menuHandler = new MenuHandler(epaPadreEustaquio, null, driver, produtoDAO);
+        ImpressoraFiscal ecf = new IFEcfSim();
+        if(ecf.connect()){
+            MenuHandler menuHandler = new MenuHandler(epaPadreEustaquio, null, ecf, produtoDAO);
             menuHandler.select("p");
         }
 

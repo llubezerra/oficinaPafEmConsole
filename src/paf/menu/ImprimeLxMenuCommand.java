@@ -1,13 +1,13 @@
 package paf.menu;
 
-import br.com.ecfsim.EcfSimDriver;
 import paf.Empresa;
+import paf.ImpressoraFiscal;
 import paf.Usuario;
 
 public class ImprimeLxMenuCommand extends MenuCommand {
 
 
-    public ImprimeLxMenuCommand(MenuHandler menuHandler, EcfSimDriver ecf, Empresa empresa, Usuario usuario) {
+    public ImprimeLxMenuCommand(MenuHandler menuHandler, ImpressoraFiscal ecf, Empresa empresa, Usuario usuario) {
         super(menuHandler, ecf, empresa, usuario);
     }
 
@@ -17,6 +17,8 @@ public class ImprimeLxMenuCommand extends MenuCommand {
     }
 
     private void doMenuImprimeLx(){
+        ecf.printLeituraX(empresa);
         System.out.println("Leitura X impressa.");
+        menuHandler.select("p");
     }
 }

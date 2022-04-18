@@ -1,9 +1,6 @@
 package paf.menu;
 
-import br.com.ecfsim.EcfSimDriver;
-import paf.Empresa;
-import paf.ProdutoDAO;
-import paf.Usuario;
+import paf.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -30,7 +27,7 @@ public class MenuHandler {
     private Map<MenuTipo, MenuCommand> menuMap = new HashMap<MenuTipo, MenuCommand>();
     private MenuCommand curMenu;
 
-    public MenuHandler(Empresa empresa, Usuario usuario, EcfSimDriver ecf, ProdutoDAO produtoDAO){
+    public MenuHandler(Empresa empresa, Usuario usuario, ImpressoraFiscal ecf, ProdutoDAO produtoDAO){
         menuMap.put(MenuTipo.PRINCIPAL, new PrincipalMenuCommand(this, empresa, usuario));
         menuMap.put(MenuTipo.VENDAS, new VendeMenuCommand(this, ecf, empresa, usuario, produtoDAO));
         menuMap.put(MenuTipo.LX_IMPRIME, new ImprimeLxMenuCommand(this, ecf, empresa, usuario));

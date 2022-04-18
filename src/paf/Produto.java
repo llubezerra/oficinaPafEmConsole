@@ -3,7 +3,7 @@ package paf;
 public class Produto {
 
     public enum UnidadeTipo{
-        PESO, UNID, POTE, LATA, CX, PCT, BDJ, LITRO;
+        PE, UN, PT, LT, CX, PCT, BDJ, LTR;
     }
     private String codigoDeBarras;
     private String descricao;
