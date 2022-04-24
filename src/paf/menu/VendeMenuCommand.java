@@ -6,6 +6,7 @@ import br.com.ecfsim.FormaPagamento;
 public class VendeMenuCommand extends MenuCommand {
 
     private ProdutoDAO produtoDAO;
+    private Cliente cliente;
     private Cupom cupom;
 
     public VendeMenuCommand(MenuHandler menuHandler, ImpressoraFiscal ecf, Empresa empresa, Usuario usuario, ProdutoDAO produtoDAO) {
@@ -15,18 +16,40 @@ public class VendeMenuCommand extends MenuCommand {
 
     @Override
     public void execute() {
-        doIniciaVenda();
+        doAdicionaCliente();
     }
 
     //Passo 1
+    private void doAdicionaCliente(){
+        System.out.println("[ PAF em Console > Menu Principal > Menu de Vendas ]");
+        System.out.println("Deseja identificar o cliente? Digite:");
+        System.out.println("s - sim, o cliente deseja ser identificado.");
+        System.out.println("n - não, o cliente não deseja ser identificado.");
+        System.out.print("= ");
+
+        String opcaoMenu = keyboardScanner.next();
+
+        if(opcaoMenu.equals("s")) {
+            System.out.println("Digite o CPF/CNPJ do cliente: ");
+            String cpf = keyboardScanner.next();
+
+            cliente = new PessoaFisica(cpf, "", "", "");
+        }else
+            cliente = null;
+
+        System.out.println(System.lineSeparator().repeat(LINE_QTY));
+        doIniciaVenda();
+    }
+
+    //Passo 2
     private void doIniciaVenda(){
-        cupom = new Cupom(empresa, Main.cliente, null);
+        cupom = new Cupom(empresa, cliente, null);
         ecf.printAbreCupom(cupom);
 
         doAdicionaItem();
     }
 
-    //Passo 2
+    //Passo 3
     private void doAdicionaItem(){
         System.out.println("[ PAF em Console > Menu Principal > Menu de Vendas ]");
         System.out.print("Digite o código de barras do produto: ");
@@ -46,7 +69,7 @@ public class VendeMenuCommand extends MenuCommand {
         doConsultaSeNovoItem();
     }
 
-    //Passo 3
+    //Passo 4
     private void doConsultaSeNovoItem(){
         System.out.println("[ PAF em Console > Menu Principal > Menu de Vendas ]");
         System.out.println("Deseja vender outro item? Digite: ");
@@ -60,15 +83,16 @@ public class VendeMenuCommand extends MenuCommand {
 
         if(opcaoMenu.equals("s"))
             doAdicionaItem();
-        else if(opcaoMenu.equals("n"))
+        else if(opcaoMenu.equals("n")) {
+            ecf.printIniciaFechamentoCupom();
             doInformaFormaPgto();
-        else {
+        }else {
             System.out.println("Opção incorreta");
             doConsultaSeNovoItem();
         }
     }
 
-    //Passo 4
+    //Passo 5
     private void doInformaFormaPgto(){
 
         System.out.println("[ PAF em Console > Menu Principal > Menu de Vendas ]");
@@ -86,11 +110,9 @@ public class VendeMenuCommand extends MenuCommand {
         doFechaVenda();
     }
 
-    //Passo 5
+    //Passo 6
     private void doFechaVenda(){
         ecf.printTerminaFechamentoCupom();
-        System.out.println("Venda fechada.");
-
         System.out.println(System.lineSeparator().repeat(LINE_QTY));
 
         menuHandler.select("p");

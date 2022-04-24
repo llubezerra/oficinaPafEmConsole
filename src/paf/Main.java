@@ -4,16 +4,21 @@ import paf.menu.MenuHandler;
 
 public class Main {
 
-    public static Cliente cliente = new PessoaFisica("000.111.222-34", "Teste", "Teste", "2299999-0000");
     public static void main(String[] args) {
 
         Empresa epaPadreEustaquio = createEmpresa();
-        ProdutoDAO produtoDAO = new ProdutoDAO();
 
-        ImpressoraFiscal ecf = new IFEcfSim();
-        if(ecf.connect()){
-            MenuHandler menuHandler = new MenuHandler(epaPadreEustaquio, null, ecf, produtoDAO);
-            menuHandler.select("p");
+        PafDatabase db = new PafDatabase();
+        if(db.connect()) {
+            ProdutoDAO produtoDAO = new ProdutoDAO(db);
+            produtoDAO.load();
+
+            ImpressoraFiscal ecf = new IFEcfSim();
+            if(ecf.connect()){
+                MenuHandler menuHandler = new MenuHandler(epaPadreEustaquio, null, ecf, produtoDAO);
+                menuHandler.select("p");
+            }
+            db.disconnect();
         }
 
         System.out.println();

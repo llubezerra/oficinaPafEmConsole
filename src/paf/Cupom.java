@@ -14,7 +14,7 @@ public class Cupom {
 
     public Cupom(Empresa empresa, Cliente cliente, Usuario usuario) {
         this.empresa    = empresa;
-        this.cliente    = cliente;
+        this.cliente = ((cliente != null) ? cliente : new PessoaFisica("", "", "", ""));
         this.seqDeItens = 0;
         this.itens      = new ArrayList<ItemDoCupom>();
         this.usuario    = usuario;

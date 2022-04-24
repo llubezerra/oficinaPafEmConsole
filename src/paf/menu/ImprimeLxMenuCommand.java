@@ -6,7 +6,6 @@ import paf.Usuario;
 
 public class ImprimeLxMenuCommand extends MenuCommand {
 
-
     public ImprimeLxMenuCommand(MenuHandler menuHandler, ImpressoraFiscal ecf, Empresa empresa, Usuario usuario) {
         super(menuHandler, ecf, empresa, usuario);
     }
@@ -18,7 +17,6 @@ public class ImprimeLxMenuCommand extends MenuCommand {
 
     private void doMenuImprimeLx(){
         ecf.printLeituraX(empresa);
-        System.out.println("Leitura X impressa.");
         menuHandler.select("p");
     }
 }

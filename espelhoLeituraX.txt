@@ -2,7 +2,7 @@
 R Pe Eustáquio, 2354. Praia Grande, Arraial do Cabo - RJ
 CNPJ: 08314547000173
 -----------------------------------------------
-17/04/2022 22:12:04                  COO: 61647
+23/04/2022 18:56:10                  COO: 61647
                L E I T U R A   X
                   CONTADORES
 Geral de Operação Não-Fiscal:            000064
@@ -76,7 +76,7 @@ Qtd. Reduções Restantes:                   3310
 -----------------------------------------------
 SIMULADOR  DE  ECF - EMISSOR  DE  CUPOM  FISCAL
 VERSAO: 01.03.00        ECF: 001        LJ: 001
-APZREWT8234KQTP21Y          17/04/2022 22:12:04
+APZREWT8234KQTP21Y          23/04/2022 18:56:10
 FAB: ALMGBH20211100000001                    BR
 
 ###############################################

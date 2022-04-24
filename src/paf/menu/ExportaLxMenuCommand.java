@@ -18,7 +18,6 @@ public class ExportaLxMenuCommand extends MenuCommand {
 
     private void doMenuExportaLx(){
         ecf.printAndExportLeituraX(empresa);
-        System.out.println("Leitura X impressa e exportada.");
         menuHandler.select("p");
     }
 }
