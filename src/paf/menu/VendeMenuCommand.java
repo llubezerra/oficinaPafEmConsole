@@ -30,10 +30,23 @@ public class VendeMenuCommand extends MenuCommand {
         String opcaoMenu = keyboardScanner.next();
 
         if(opcaoMenu.equals("s")) {
-            System.out.println("Digite o CPF/CNPJ do cliente: ");
-            String cpf = keyboardScanner.next();
+            System.out.println("Digite 1 para pessoa física.");
+            System.out.println("Digite 2 para pessoa jurídica");
 
-            cliente = new PessoaFisica(cpf, "", "", "");
+            String opcaoMenu2 = keyboardScanner.next();
+
+            if(opcaoMenu2.equals("1")) {
+                System.out.println("Digite o CPF do cliente: ");
+                String cpf = keyboardScanner.next();
+                cliente = new PessoaFisica(cpf, "", "", "");
+            } else if(opcaoMenu2.equals("2")){
+                System.out.println("Digite o CNPJ do cliente: ");
+                String cnpj = keyboardScanner.next();
+                cliente = new PessoaJuridica(cnpj, "", "", "", "");
+            } else{
+                System.out.println("Opção inválida");
+            }
+
         }else
             cliente = null;
 
